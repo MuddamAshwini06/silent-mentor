@@ -1,0 +1,30 @@
+.form-row {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.form-row input,
+.form-row textarea {
+  padding: 8px;
+  width: 100%;
+}
+
+.form-row textarea {
+  resize: vertical;
+}
+
+.post-btn {
+  padding: 10px 16px;
+  background: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.post-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
