@@ -2,7 +2,7 @@
 
 Silent Mentor is a full-stack web platform where professionals share real career, skills, and academic experiences, and students learn from them.
 
-## 🚀 Features
+##  Features
 
 - User Signup & Login (JWT auth)
 - Category based experiences:
@@ -15,7 +15,7 @@ Silent Mentor is a full-stack web platform where professionals share real career
 - Clean UI with category themes
 - Protected routes
 
-## 🛠 Tech Stack
+##  Tech Stack
 
 Frontend:
 - React
@@ -27,12 +27,12 @@ Backend:
 - MongoDB
 - JWT Authentication
 
-## 📂 Structure
+##  Structure
 
 client → React frontend  
 server → Express backend
 
-## ▶️ Run Locally
+##  Run Locally
 
 Backend:
 
