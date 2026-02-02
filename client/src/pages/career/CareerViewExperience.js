@@ -6,7 +6,7 @@ export default function CareerViewExperience() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://https://silent-mentor-api.onrender.com/api/posts")
+    fetch("https://silent-mentor-api.onrender.com/api/posts")
       .then(res => res.json())
       .then(data => {
         const careerPosts = data.filter(p => p.category === "Career");

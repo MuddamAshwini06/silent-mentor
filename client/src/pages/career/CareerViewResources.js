@@ -6,7 +6,7 @@ export default function CareerViewResources() {
   const [resources, setResources] = useState("");
 
   useEffect(() => {
-    fetch("http://https://silent-mentor-api.onrender.com/api/posts")
+    fetch("https://silent-mentor-api.onrender.com/api/posts")
       .then(res => res.json())
       .then(data => {
         const post = data.find(p => p._id === id);

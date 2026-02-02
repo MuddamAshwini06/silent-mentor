@@ -71,11 +71,11 @@ export default function CareerPostExperience() {
           {editingId ? "Edit Career Experience" : "Post Career Experience"}
         </div>
 
-        <input placeholder="Name"
+        <input placeholder="Your FullName"
           value={form.name}
           onChange={e => setForm({ ...form, name: e.target.value })} />
 
-        <input placeholder="Company-Topic"
+        <input placeholder="Company-Topic (ex: TCS-InterviewPrep)"
           value={form.company}
           onChange={e => setForm({ ...form, company: e.target.value })} />
 

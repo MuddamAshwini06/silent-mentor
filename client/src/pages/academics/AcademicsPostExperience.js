@@ -73,19 +73,31 @@ export default function AcademicsPostExperience() {
           {editingId ? "Edit Academics Experience" : "Post Academics Experience"}
         </div>
 
-        <input value={form.name}
-          onChange={e => setForm({ ...form, name: e.target.value })} />
+        <input
+  placeholder="Your Full Name"
+  value={form.name}
+  onChange={e => setForm({ ...form, name: e.target.value })}
+/>
 
-        <input value={form.company}
-          onChange={e => setForm({ ...form, company: e.target.value })} />
+<input
+  placeholder="College-Subject (ex: CMRCET-OOPS)"
+  value={form.company}
+  onChange={e => setForm({ ...form, company: e.target.value })}
+/>
 
-        <textarea className="big"
-          value={form.content}
-          onChange={e => setForm({ ...form, content: e.target.value })} />
+<textarea
+  className="big"
+  placeholder="Describe your academic experience"
+  value={form.content}
+  onChange={e => setForm({ ...form, content: e.target.value })}
+/>
 
-        <textarea className="medium"
-          value={form.resources}
-          onChange={e => setForm({ ...form, resources: e.target.value })} />
+<textarea
+  className="medium"
+  placeholder="Resources (one per line)"
+  value={form.resources}
+  onChange={e => setForm({ ...form, resources: e.target.value })}
+/>
 
         <button className="btn" onClick={submitExperience}>
           {editingId ? "Update" : "Post"}

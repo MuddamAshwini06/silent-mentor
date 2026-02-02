@@ -7,7 +7,7 @@ export default function CareerExperienceDetails() {
   const [post, setPost] = useState(null);
 
   useEffect(() => {
-    fetch("http://https://silent-mentor-api.onrender.com/api/posts")
+    fetch("https://silent-mentor-api.onrender.com/api/posts")
       .then(res => res.json())
       .then(data => {
         const selected = data.find(p => p._id === id);
