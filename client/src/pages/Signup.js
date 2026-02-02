@@ -14,7 +14,7 @@ export default function Signup() {
       return;
     }
 
-    const res = await fetch("http://https://silent-mentor-api.onrender.com/api/auth/signup", {
+    const res = await fetch("https://silent-mentor-api.onrender.com/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

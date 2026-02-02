@@ -13,7 +13,7 @@ export default function Login() {
       return;
     }
 
-    const res = await fetch("http://https://silent-mentor-api.onrender.com/api/auth/login", {
+    const res = await fetch("https://silent-mentor-api.onrender.com/api/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
