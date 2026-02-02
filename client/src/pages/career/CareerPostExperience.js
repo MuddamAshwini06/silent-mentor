@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function CareerPostExperience() {
@@ -6,7 +6,6 @@ export default function CareerPostExperience() {
   const token = localStorage.getItem("token");
 
   const [editingId, setEditingId] = useState(null);
-
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -16,29 +15,28 @@ export default function CareerPostExperience() {
 
   const [myPosts, setMyPosts] = useState([]);
 
-  const loadMyPosts = () => {
-    fetch("http://https://silent-mentor-api.onrender.com/api/posts/mine", {
+  const loadMyPosts = useCallback(() => {
+    fetch("https://silent-mentor-api.onrender.com/api/posts/mine", {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => res.json())
       .then(data => {
-        const careerPosts = data.filter(p => p.category === "Career");
-        setMyPosts(careerPosts);
+        setMyPosts(data.filter(p => p.category === "Career"));
       });
-  };
+  }, [token]);
 
   useEffect(() => {
     loadMyPosts();
-  }, []);
+  }, [loadMyPosts]);
 
   const submitExperience = async () => {
     const url = editingId
-      ? `http://https://silent-mentor-api.onrender.com/api/posts/${editingId}`
-      : "http://https://silent-mentor-api.onrender.com/api/posts";
+      ? `https://silent-mentor-api.onrender.com/api/posts/${editingId}`
+      : "https://silent-mentor-api.onrender.com/api/posts";
 
     const method = editingId ? "PUT" : "POST";
 
-    const res = await fetch(url, {
+    await fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",
@@ -47,113 +45,67 @@ export default function CareerPostExperience() {
       body: JSON.stringify({ ...form, category: "Career" })
     });
 
-    if (!res.ok) {
-      alert("Something went wrong");
-      return;
-    }
-
-    alert(editingId ? "Post edited successfully" : "Post posted successfully");
-
+    alert(editingId ? "Updated" : "Posted");
     setEditingId(null);
     setForm({ name: "", company: "", content: "", resources: "" });
     loadMyPosts();
   };
 
   const deletePost = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this experience?"
-    );
+    if (!window.confirm("Are you sure?")) return;
 
-    if (!confirmDelete) return;
-
-    await fetch(`http://https://silent-mentor-api.onrender.com/api/posts/${id}`, {
+    await fetch(`https://silent-mentor-api.onrender.com/api/posts/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` }
     });
 
-    alert("Post deleted successfully");
     loadMyPosts();
   };
 
   return (
     <div className="career-bg">
       <div className="form-container">
-
-        <button className="btn btn-back" onClick={() => navigate("/career")}>
-          Back
-        </button>
+        <button className="btn btn-back" onClick={() => navigate("/career")}>Back</button>
 
         <div className="page-title">
           {editingId ? "Edit Career Experience" : "Post Career Experience"}
         </div>
 
-        <input
-          placeholder="Your Full Name"
+        <input placeholder="Name"
           value={form.name}
-          onChange={e => setForm({ ...form, name: e.target.value })}
-        />
+          onChange={e => setForm({ ...form, name: e.target.value })} />
 
-        <input
-          placeholder="Company/College -Topic (Example: Microsoft - Interview Prep)"
+        <input placeholder="Company-Topic"
           value={form.company}
-          onChange={e => setForm({ ...form, company: e.target.value })}
-        />
+          onChange={e => setForm({ ...form, company: e.target.value })} />
 
-        <textarea
-          className="big"
-          placeholder="Describe your experience (max 1000 words)"
+        <textarea className="big"
           value={form.content}
-          onChange={e => setForm({ ...form, content: e.target.value })}
-        />
+          onChange={e => setForm({ ...form, content: e.target.value })} />
 
-        <textarea
-          className="medium"
-          placeholder="Resources (one per line)"
+        <textarea className="medium"
           value={form.resources}
-          onChange={e => setForm({ ...form, resources: e.target.value })}
-        />
+          onChange={e => setForm({ ...form, resources: e.target.value })} />
 
         <button className="btn" onClick={submitExperience}>
-          {editingId ? "Update Experience" : "Post Experience"}
+          {editingId ? "Update" : "Post"}
         </button>
-
-        <h3 style={{ marginTop: "40px" }}>My Career Posts</h3>
 
         {myPosts.map(post => (
           <div key={post._id} className="post-card">
-
             <p>{post.content}</p>
-
             <div className="post-actions">
-
-              <button
-                className="btn"
+              <button className="btn"
                 onClick={() => {
                   setEditingId(post._id);
-                  setForm({
-                    name: post.name,
-                    company: post.company,
-                    content: post.content,
-                    resources: post.resources || ""
-                  });
+                  setForm(post);
+                }}>Edit</button>
 
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }}
-              >
-                Edit
-              </button>
-
-              <button
-                className="btn delete-btn"
-                onClick={() => deletePost(post._id)}
-              >
-                Delete
-              </button>
-
+              <button className="btn delete-btn"
+                onClick={() => deletePost(post._id)}>Delete</button>
             </div>
           </div>
         ))}
-
       </div>
     </div>
   );
